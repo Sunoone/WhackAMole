@@ -50,7 +50,7 @@ namespace Grid
             float halfHeight = height / 2;
 
             float xStart = transform.position.x - (halfWidth * tileSize.x) - (halfWidth * _spacing.x);
-            float yStart = transform.position.y - (halfHeight * tileSize.y) - (halfWidth * _spacing.y);
+            float yStart = transform.position.y - (halfHeight * tileSize.y) - (halfHeight * _spacing.y);
 
             float horizontalOffset = (width & 1) == 1 ? 0 : 0.5f * tileSize.x;
             float verticalOffset = (height & 1) == 1 ? 0 : 0.5f * tileSize.y;
