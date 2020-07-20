@@ -8,7 +8,7 @@ public class Draggable : MonoBehaviour, ITouchDragHandler, ITouchDownHandler
     private Vector3 _offset;
     public void OnStartDrag(Vector3 position)
     {
-        Debug.Log("Start moving " + name);
+
     }
     public void OnDrag(Vector3 position)
     {

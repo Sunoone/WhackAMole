@@ -10,26 +10,33 @@ namespace Grid
         private const int _defaultSize = 5;
         private const float _defaultSpacing = 0.1f;
 
-        [SerializeField] private float _cameraDistance = 10f;
-        [SerializeField] private bool _createOnStart = true;
+        [SerializeField] 
+        private float _cameraDistance = 10f;
+        [SerializeField] 
+        private bool _createOnAwake = true;
         // Pragma removes warnings in the Unity editor, as it is not aware of editor injections.
 #pragma warning disable 649
-        [SerializeField] private GameObject _tilePrefab;
-        [SerializeField] private Camera _camera;
+        [SerializeField] 
+        private GameObject _tilePrefab;
+        [SerializeField] 
+        private Camera _camera;
 #pragma warning restore 649
-        [SerializeField] private Vector2Int _boardSize = new Vector2Int(_defaultSize, _defaultSize);
-        [SerializeField] private Vector2 _spacing = new Vector2(_defaultSpacing, _defaultSpacing);
-        [SerializeField] private GameObject[,] _grid;
+        [SerializeField] 
+        private Vector2Int _boardSize = new Vector2Int(_defaultSize, _defaultSize);
+        [SerializeField] 
+        private Vector2 _spacing = new Vector2(_defaultSpacing, _defaultSpacing);
+        [SerializeField] 
+        private Vector3[,] _grid;
+        public Vector3[,] Grid { get => _grid; }
 
-        // Checks if the tile is currently locked/occupied
-        public bool IsTileLocked(int x, int y) => _grid[x, y];
+        public Vector2Int Size { get => _boardSize; }
 
-        private void Start()
+        private void Awake()
         {
-            if (_createOnStart)
+            if (_createOnAwake)
             {
                 Create(_boardSize.x, _boardSize.y);
-                Debug.LogWarning("Created on Start.");
+                Debug.LogWarning("Created on Awake.");
             }
         }
 
@@ -44,7 +51,7 @@ namespace Grid
             Delete();
 
             Vector3 tileSize = _tilePrefab.transform.localScale * GetMeshScaleModifier();
-            _grid = new GameObject[width, height];
+            _grid = new Vector3[width, height];
 
             float halfWidth = width / 2;
             float halfHeight = height / 2;
@@ -65,7 +72,7 @@ namespace Grid
                     tile.transform.position = new Vector3(position.x + x * tileSize.x + x * _spacing.x + horizontalOffset,
                                                           position.y + y * tileSize.z + y * _spacing.y + verticalOffset,
                                                           transform.position.z);
-                    _grid[x, y] = tile;
+                    _grid[x, y] = tile.transform.position;
                 }
             }
 
